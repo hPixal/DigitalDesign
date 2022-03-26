@@ -71,14 +71,14 @@ bitChain::bitChain(string ascii)
     crop0s();
 }
 
+//este constructor no construye bien.
 bitChain::bitChain(int translate)
 {
-    int size = to_string(translate).size(); //Not the most efficent way, but gets the job done and it's more readable... 
-                                            //You can divide by 10 till you get the size but is kinda tedious
     //int is 4 bytes long, 1 byte is 8 bits so 4*8 = 32
     this->chain = bitset<32>(translate).to_string();
     //now lets crop the 0s
     this->crop0s();
+    cout << chain;
     this->size = chain.size();
 }
 
@@ -96,15 +96,12 @@ bool bitChain::checkCRC(string pol){
 
 void bitChain::makeCRC(string pol){
     string newstr = this->chain;
-    for(int i = 0 ; i < this->chain.size()+pol.size()-1 ; i++)
-        { newstr += '0'; }
-    bitChain rem;
-    newstr = binXOR(chain,pol);
+    newstr = binXOR(newstr,pol);
     
     chain += newstr;
 }
 
-string makeParity(string toDO){
+string bitChain::makeParity(string toDO){
     string newParity;
     int lastparity;
 
@@ -112,15 +109,18 @@ string makeParity(string toDO){
     for(auto x : toDO){
         //Convert 
         int acum = 0;
-        string add = bitset<8>(x).to_string();
+        string add = bitset<7>(x).to_string();
+        //crop0s(add,0);
 
         for(auto y : add){
             if(y == '1') acum++;
         }
 
-        if(acum%2 > 0){ add+='1'; lastparity++; }
+        if(acum%2 == 0){ add+='1'; lastparity++; }
         else{ add+='0'; }
-
+        int count = 0;
+        for(auto x: add) if(x == '1') count++;
+        cout << add << " bits : " << count << endl;
         newParity+=add;
     }
     if (lastparity%2 > 0)

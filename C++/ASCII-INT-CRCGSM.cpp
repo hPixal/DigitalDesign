@@ -6,8 +6,9 @@
 using namespace std;
 
 int main (){
-    string msg;
+    string msg; int entero = 0;
     cout << "Introduzca el mensaje: ";
+    //cin >> entero; cin.ignore();
     getline(cin,msg);
     string crc;
     cout << "Introduzca en binario el polinomio significativo del CRC: ";
@@ -23,7 +24,7 @@ int main (){
     for (size_t i = 0; i < 5; i++)
     {
         cout << "Cargando : " << i*25 << "%" << endl;
-        sleep(1);
+        //sleep(1);
     }
     if (a.checkCRC(crc))
     {
