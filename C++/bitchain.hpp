@@ -29,6 +29,7 @@ public:
     string getChain(){ return this->chain; }
 
     //Functions
+    string makeParity(string toDo);
     bool checkCRC(string pol); //Returns true if mod between pol == 0 else false
     void makeCRC(string pol); //Recursive XOR function between pol till get redundancy bits (mod)
 

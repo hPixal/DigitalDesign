@@ -104,3 +104,29 @@ void bitChain::makeCRC(string pol){
     chain += newstr;
 }
 
+string makeParity(string toDO){
+    string newParity;
+    int lastparity;
+
+    
+    for(auto x : toDO){
+        //Convert 
+        int acum = 0;
+        string add = bitset<8>(x).to_string();
+
+        for(auto y : add){
+            if(y == '1') acum++;
+        }
+
+        if(acum%2 > 0){ add+='1'; lastparity++; }
+        else{ add+='0'; }
+
+        newParity+=add;
+    }
+    if (lastparity%2 > 0)
+        newParity+='1';
+    else newParity+='0';
+    
+    return newParity;
+}
+

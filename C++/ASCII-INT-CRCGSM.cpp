@@ -30,6 +30,7 @@ int main (){
         cout << "Mensaje retribuido correctamente." << endl;
     }else{ cout << "Mensaje fallido" << endl; }
     
-    
+    string test = a.makeParity(msg);
+    cout << "Mensaje con paridad" << endl << test << endl;
     return 0;
 }
