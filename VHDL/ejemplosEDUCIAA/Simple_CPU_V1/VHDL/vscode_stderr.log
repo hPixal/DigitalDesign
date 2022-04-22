@@ -1,0 +1,13 @@
+WARNING: cgroup v2 is not fully supported yet, proceeding with partial confinement
+ghdl: cannot open *.vhdl
+ghdl: importation has failed due to compilation error
+rm: cannot remove '*.o': No such file or directory
+
+GTKWave Analyzer v3.3.109 (w)1999-2020 BSI
+
+[0] start time.
+[176400000000] end time.
+
+** (gtkwave:5676): WARNING **: 02:35:45.806: Invalid borders specified for theme pixmap:
+        /usr/share/themes/Breath/gtk-2.0/../assets/line-h.png,
+borders don't fit within the image

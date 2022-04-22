@@ -1,0 +1,3 @@
+set_io a_in 31
+set_io b_in 32
+set_io q_out 1

@@ -1,0 +1,21 @@
+# ##############################################################################
+
+# iCEcube PCF
+
+# Version:            2017.08.27940
+
+# File Generated:     Oct 24 2020 07:42:25
+
+# Family & Device:    iCE40HX4K
+
+# Package:            TQ144
+
+# ##############################################################################
+
+###IOSet List 5
+set_io a_in 31
+set_io b_in 32
+set_io eq_out 1
+set_io gt_out 2
+set_io lt_out 3
+
