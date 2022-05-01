@@ -1,0 +1,7 @@
+v 4
+file . "sieteSegmentos_tb.vhd" "4a4a7c76f92a21842972df280735b5e8170da6c2" "20220501141421.500":
+  entity sietesegmentos_tb at 1( 0) + 0 on 13;
+  architecture sietesegmentos_tb of sietesegmentos_tb at 9( 153) + 0 on 14;
+file . "sieteSegmentos.vhd" "380cd0e73ffe4dbf83904e8eebd928ab488e8230" "20220501141415.880":
+  entity sietesegmentos at 1( 0) + 0 on 11;
+  architecture behavioral of sietesegmentos at 24( 531) + 0 on 12;
