@@ -1,0 +1,7 @@
+v 4
+file . "tipoT_tb.vhd" "3767bf7f21919a7b33f4f4685c17ea3d8fbb6c5a" "20220524131906.185":
+  entity tipot_tb at 1( 0) + 0 on 13;
+  architecture tipot_tb of tipot_tb at 9( 144) + 0 on 14;
+file . "tipoT.vhd" "bedbbebc1fed15391b8fc8a6949a81563cc7ed1b" "20220524131901.523":
+  entity tipot at 1( 0) + 0 on 11;
+  architecture behavioral of tipot at 15( 257) + 0 on 12;
