@@ -1,0 +1,115 @@
+$date
+  Wed Jun  8 15:49:15 2022
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module tipojk_tb $end
+$var reg 1 ! rst $end
+$var reg 1 " d $end
+$var reg 1 # q $end
+$var reg 1 $ noq $end
+$var reg 1 % clk $end
+$scope module uut $end
+$var reg 1 & rst $end
+$var reg 1 ' d $end
+$var reg 1 ( q $end
+$var reg 1 ) noq $end
+$var reg 1 * clk $end
+$var reg 1 + internalq $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+U!
+U"
+U#
+U$
+U%
+U&
+U'
+U(
+U)
+U*
+U+
+#10000000
+1"
+1#
+0$
+1%
+1'
+1(
+0)
+1*
+1+
+#20000000
+0%
+0*
+#30000000
+0"
+0'
+#40000000
+#50000000
+1"
+1%
+1'
+1*
+#60000000
+0%
+0*
+#70000000
+0"
+0'
+#80000000
+#90000000
+1!
+0#
+1$
+1%
+1&
+0(
+1)
+1*
+0+
+#100000000
+0%
+0*
+#110000000
+1"
+1#
+0$
+1%
+1'
+1(
+0)
+1*
+1+
+#120000000
+0%
+0*
+#130000000
+0!
+1%
+0&
+1*
+#140000000
+0%
+0*
+#150000000
+0"
+0#
+1$
+1%
+0'
+0(
+1)
+1*
+0+
+#160000000

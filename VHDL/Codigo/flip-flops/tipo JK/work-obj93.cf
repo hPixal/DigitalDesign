@@ -1,0 +1,7 @@
+v 4
+file . "tipoJK.vhd" "ad853ccd660c3f8e6d42d03e61c52184f42bb48f" "20220608184901.380":
+  entity tipojk at 1( 0) + 0 on 21;
+  architecture behavioral of tipojk at 16( 286) + 0 on 22;
+file . "tipoJK_tb.vhd" "a9b51b96f5c48d3cb7293881d8aa46af04eb7006" "20220608184911.591":
+  entity tipojk_tb at 1( 0) + 0 on 23;
+  architecture tipojk_tb of tipojk_tb at 9( 145) + 0 on 24;
