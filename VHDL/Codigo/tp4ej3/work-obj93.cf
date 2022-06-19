@@ -1,0 +1,7 @@
+v 4
+file . "comparasion_tb.vhd" "e654f08cd510c9c751058bae9245dcfd0adf0519" "20220501222544.131":
+  entity comparasion_tb at 1( 0) + 0 on 13;
+  architecture comparasion_tb of comparasion_tb at 8( 118) + 0 on 14;
+file . "comparasion.vhd" "43805e54795c27f9026f9bd9c38e47606c1780d6" "20220501222539.813":
+  entity comparasion at 1( 0) + 0 on 11;
+  architecture behavioral of comparasion at 16( 326) + 0 on 12;
