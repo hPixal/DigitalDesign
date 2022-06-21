@@ -1,0 +1,15 @@
+v 4
+file . "Motor.vhd" "8e2eef7716696c98a47a9e81c2940ee30c200b03" "20220621145530.693":
+  entity motor at 1( 0) + 0 on 33;
+file . "Lavarropas.vhd" "a0151a73c159f36e5421e81c9cc49c130ec82fb4" "20220621145559.968":
+  entity lavarropas at 1( 0) + 0 on 35;
+  architecture sens of lavarropas at 15( 294) + 0 on 36;
+file . "Valvula.vhd" "907d1849c5c141142bb166bd10345873e4fbaaf8" "20220621145503.757":
+  entity valvula at 1( 0) + 0 on 30;
+file . "Electroiman.vhd" "b1da93618227585f15a87f6047f99b1dbd3b697e" "20220621145511.347":
+  entity electroiman at 1( 0) + 0 on 31;
+  architecture sens of electroiman at 11( 160) + 0 on 32;
+file . "Sensor.vhd" "05d5b2efa30bc4c5fb11559ddcf22bf4a108c828" "20220621145547.641":
+  entity sensor at 1( 0) + 0 on 34;
+file . "Bomba.vhd" "c227e0d74f6dbd85202af71233bde63b901ad3c6" "20220621145315.786":
+  entity bomba at 1( 0) + 0 on 29;

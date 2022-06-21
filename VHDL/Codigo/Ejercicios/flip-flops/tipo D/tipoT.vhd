@@ -13,7 +13,7 @@ entity tipoT is
 end tipoT;
 
 architecture Behavioral of tipoT is
-    signal internalQ : std_logi
+    signal internalQ : std_logic
     begin
         process (CLK)
         begin
