@@ -1,0 +1,4 @@
+v 4
+file . "wait.vhd" "72a8fec75631b5e9a2aad6230ed3083d8d829bc1" "20220619160122.377":
+  entity wa at 1( 0) + 0 on 17;
+  architecture sim of wa at 4( 34) + 4 on 18;
