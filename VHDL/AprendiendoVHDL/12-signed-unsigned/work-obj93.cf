@@ -1,0 +1,4 @@
+v 4
+file . "sign.vhd" "b8a8e9279c61b873ed9cec6a7334209c88757240" "20220622204238.821":
+  entity sign at 1( 0) + 0 on 11;
+  architecture sim of sign at 8( 106) + 4 on 12;

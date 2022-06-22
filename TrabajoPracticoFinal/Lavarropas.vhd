@@ -3,13 +3,13 @@ use ieee.std_logic_1164.all;
 
 entity Lavarropas is
 port(
-    inicio : in std_logic;
-    perilla : in std_logic_vector(2 downto 0);
-    led_tapa : out std_logic;
-    led_lavado : out std_logic;
+    perilla          : in std_logic_vector(2 downto 0);
+    inicio           : in std_logic;
+    clk              : in std_logic;
+    led_tapa         : out std_logic;
+    led_lavado       : out std_logic;
     led_centrifugado : out std_logic;
-    clk : in std_logic;
-    led_enjuague : out std_logic
+    led_enjuague     : out std_logic
 );
 end entity;
 
@@ -73,16 +73,10 @@ architecture sens of Lavarropas is
     signal sal_sensor3 : std_logic;
     signal sal_sensor4 : std_logic;
 
-    --Botonera
+    --Maquina de Estados
 
-    --signal inicio : std_logic;
-    --signal perilla : std_logic_vector(2 downto 0);
-    --signal led_tapa : std_logic;
-    --signal led_lavado : std_logic;
-    --signal led_centrifugado : std_logic;
-    --signal led_enjuague : std_logic;
-
-    signal state_reg, next_state : std_logic_vector(3 downto 0);
+    signal state_reg  : std_logic_vector(3 downto 0);
+    signal next_state : std_logic_vector(3 downto 0);
 
     --Estados
     Constant IDLE         : std_logic_vector(3 downto 0) := "0001";
@@ -179,23 +173,23 @@ begin
             when LAVADO =>
                 act_VJ <= '1';
                 act_VL <= '1';
-                wait for 10 ns;
+                --wait for 10 ns;
                 act_VJ <= '0';
                 act_VL <= '0';
                 if sal_sensor3 = '0' then
                     act_VV <= '1';
                     med <= '1';
-                    wait for 20 ns;
+                    --wait for 20 ns;
                     act_VV <= '0';
                     med <= '0';
                     next_state <= IDLE;
                 end if;
                 med <= '1';
-                wait for 600 ns;
+                --wait for 600 ns;
                 med <= '0';
                 act_VV <= '1';
                 act_bomba <= '1';
-                wait for 20 ns;
+                --wait for 20 ns;
                 act_VV <= '0';
                 act_bomba <= '0';
                 --TODO: Logica de los sensores

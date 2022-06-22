@@ -1,0 +1,4 @@
+v 4
+file . "logic.vhd" "c52a56ee3ff9ae97e3c95e3970ef3c627a356a13" "20220622195621.536":
+  entity logic at 1( 0) + 0 on 11;
+  architecture sim of logic at 7( 81) + 4 on 12;

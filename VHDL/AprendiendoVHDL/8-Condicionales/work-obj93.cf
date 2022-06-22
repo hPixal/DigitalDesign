@@ -1,0 +1,4 @@
+v 4
+file . "condicionales.vhd" "1ccd4969e9d975cf3c5157eaba96fc9ab334e1d2" "20220622163943.625":
+  entity condicionales at 1( 0) + 0 on 11;
+  architecture sim of condicionales at 4( 45) + 4 on 12;
