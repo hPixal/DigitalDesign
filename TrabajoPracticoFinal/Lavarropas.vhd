@@ -3,13 +3,13 @@ use ieee.std_logic_1164.all;
 
 entity Lavarropas is
 port(
-    perilla          : in std_logic_vector(2 downto 0);
-    inicio           : in std_logic;
-    clk              : in std_logic;
-    led_tapa         : out std_logic;
-    led_lavado       : out std_logic;
-    led_centrifugado : out std_logic;
-    led_enjuague     : out std_logic
+    perilla          : in std_logic_vector(2 downto 0) := "000";
+    inicio           : in std_logic := '0';
+    clk              : in std_logic := '0';
+    led_tapa         : out std_logic := '0' ;
+    led_lavado       : out std_logic := '0';
+    led_centrifugado : out std_logic := '0';
+    led_enjuague     : out std_logic := '0'
 );
 end entity;
 
@@ -51,28 +51,28 @@ architecture sens of Lavarropas is
     --CABLES 
 
     --Valvulas
-    signal act_VJ : std_logic;
-    signal act_VS : std_logic;
-    signal act_VL : std_logic;
-    signal act_VV : std_logic;
+    signal act_VJ : std_logic := '0';
+    signal act_VS : std_logic := '0';
+    signal act_VL : std_logic := '0';
+    signal act_VV : std_logic := '0';
 
     --Motor
-    signal alt : std_logic;
-    signal med : std_logic;
+    signal alt : std_logic := '0';
+    signal med : std_logic := '0';
 
     --Bomba
-    signal act_bomba : std_logic;
+    signal act_bomba : std_logic := '0';
 
     --Electroiman
-    signal act_electroiman : std_logic;
-    signal salida_electroiman : std_logic;
+    signal act_electroiman : std_logic := '0';
+    signal salida_electroiman : std_logic := '0';
 
     --Sensores
-    signal sal_sensor0 : std_logic;
-    signal sal_sensor1 : std_logic;
-    signal sal_sensor2 : std_logic;
-    signal sal_sensor3 : std_logic;
-    signal sal_sensor4 : std_logic;
+    signal sal_sensor0 : std_logic := '0';
+    signal sal_sensor1 : std_logic := '0';
+    signal sal_sensor2 : std_logic := '0';
+    signal sal_sensor3 : std_logic := '0';
+    signal sal_sensor4 : std_logic := '0';
 
     --Maquina de Estados
 
@@ -80,7 +80,7 @@ architecture sens of Lavarropas is
     signal next_state : std_logic_vector(4 downto 0);
 
     --Bandera
-    signal lavado_flag : std_logic := '0';
+    signal lavado_flag : std_logic_vector(1 downto 0) := "00";
 
     --Estados
     Constant IDLE         : std_logic_vector(4 downto 0) := "00001";
@@ -141,14 +141,11 @@ architecture sens of Lavarropas is
         sal_sensor => sal_sensor4
     );
 
-    process(next_state,clk)
+    process(next_state)
     begin                            
         if next_state'event then
             state_reg <= next_state;
         end if;
-        led_lavado       <= '0';
-        led_centrifugado <= '0';
-        led_enjuague     <= '0';
     end process;
 
     process(clk)
@@ -190,14 +187,17 @@ architecture sens of Lavarropas is
                         act_VL <= '0';
                         if sal_sensor2 = '0' or sal_sensor4 = '1' then
                             Contador <= 0;
+                            led_lavado <= '0';
+                            lavado_flag <= "10";
                             next_state <= DESAGOTE;
                             else
                             med <= '1';
                         end if;
                     elsif Contador = 36 then
-                            lavado_flag <= '1';
+                            lavado_flag <= "01";
                             med <= '0';
                             Contador <= 0;
+                            led_lavado <= '0';
                             next_state <= DESAGOTE;
                     end if;
                 
@@ -213,6 +213,7 @@ architecture sens of Lavarropas is
                         act_VL <= '0';
                         if sal_sensor2 = '0' or sal_sensor4 = '1' then
                             Contador <= 0;
+                            led_enjuague <= '0';
                             next_state <= DESAGOTE;
                             else
                             med <= '1';
@@ -220,6 +221,7 @@ architecture sens of Lavarropas is
                     elsif Contador = 36 then
                             med <= '0';
                             Contador <= 0;
+                            led_enjuague <= '0';
                             next_state <= DESAGOTE;
                     end if;
                 
@@ -232,6 +234,7 @@ architecture sens of Lavarropas is
                     elsif Contador = 16 then
                         alt <= '0'; 
                         Contador <= 0;
+                        led_centrifugado <= '0';
                         next_state <= IDLE;
                     end if;
 --------    --------------------------------------------------------------------------------------------
@@ -240,18 +243,18 @@ architecture sens of Lavarropas is
                         act_VV <= '1';
                         act_bomba <= '1';
                     elsif Contador = 5 then
-                        if perilla = "001" or perilla = "010" then
+                        if perilla = "001" or perilla = "010" or lavado_flag = "10" then
                             Contador <= 0;
                             next_state <= IDLE;
                         elsif perilla = "101" or perilla = "110" then
                             Contador <= 0;
                             next_state <= CENTRIFUGADO;
                         elsif perilla = "111" or perilla = "011" then
-                            if lavado_flag = '0' then
+                            if lavado_flag = "00" then
                                 Contador <= 0;
                                 next_state <= ENJUAGUE;
-                            else
-                                lavado_flag <= '0';
+                            else 
+                                lavado_flag <= "00";
                                 if perilla = "111" then
                                     Contador <= 0;
                                     next_state <= CENTRIFUGADO;

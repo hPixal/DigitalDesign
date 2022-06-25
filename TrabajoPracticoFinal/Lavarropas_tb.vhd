@@ -28,7 +28,6 @@ architecture sens of Lavarropas_tb is
 
 
     constant clk_period : time := 1 ns;
-
 begin
     uut: Lavarropas
     port map(
@@ -42,11 +41,17 @@ begin
     );
 
     clk_process :process
+        variable contadorTB : integer range 0 to 200 := 0;
         begin
-        clk <= '0';
-        wait for clk_period/2;  --for 0.5 ns signal is '0'.
-        clk <= '1';
-        wait for clk_period/2;  --for next 0.5 ns signal is '1'.
+        contadorTB := contadorTB + 1;
+        if contadorTB < 199 then 
+            clk <= '0';
+            wait for clk_period/2;  --for 0.5 ns signal is '0'.
+            clk <= '1';
+            wait for clk_period/2;  --for next 0.5 ns signal is '1'.
+        else
+        wait;
+        end if;
    end process;
 
    tb_process :process
@@ -54,8 +59,8 @@ begin
         begin
         inicio <= '1';
         perilla <= "000";
-        wait for 0.5 ns;
         perilla <= "111";
+        wait for 0.5 ns;
         wait;
     end process;
         
