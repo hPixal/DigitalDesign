@@ -7,3 +7,8 @@ port(
     alt : in std_logic
 );
 end entity;
+
+architecture sens of Motor is
+    begin
+
+    end architecture;

@@ -1,15 +1,22 @@
 v 4
-file . "Bomba.vhd" "c227e0d74f6dbd85202af71233bde63b901ad3c6" "20220621145315.786":
-  entity bomba at 1( 0) + 0 on 29;
-file . "Sensor.vhd" "05d5b2efa30bc4c5fb11559ddcf22bf4a108c828" "20220621145547.641":
-  entity sensor at 1( 0) + 0 on 34;
-file . "Electroiman.vhd" "b1da93618227585f15a87f6047f99b1dbd3b697e" "20220621145511.347":
-  entity electroiman at 1( 0) + 0 on 31;
-  architecture sens of electroiman at 11( 160) + 0 on 32;
-file . "Valvula.vhd" "907d1849c5c141142bb166bd10345873e4fbaaf8" "20220621145503.757":
-  entity valvula at 1( 0) + 0 on 30;
-file . "Lavarropas.vhd" "0fd506332461b21b8645c6f1a752e96637cc76d0" "20220621183424.546":
-  entity lavarropas at 1( 0) + 0 on 41;
-  architecture sens of lavarropas at 16( 318) + 0 on 42;
-file . "Motor.vhd" "8e2eef7716696c98a47a9e81c2940ee30c200b03" "20220621145530.693":
-  entity motor at 1( 0) + 0 on 33;
+file . "Bomba.vhd" "2759a68122fe939871b16e550af847915f384983" "20220623171936.820":
+  entity bomba at 1( 0) + 0 on 61;
+  architecture sens of bomba at 10( 111) + 0 on 62;
+file . "Sensor.vhd" "4a3e6b1f23e9a3c9448cb94cb13388a0da4b9fc6" "20220623171954.574":
+  entity sensor at 1( 0) + 0 on 65;
+  architecture sens of sensor at 10( 114) + 0 on 66;
+file . "Electroiman.vhd" "808368603389fc8f2dd2efa293f5052a02eb7ac5" "20220623171156.681":
+  entity electroiman at 1( 0) + 0 on 53;
+  architecture sens of electroiman at 11( 163) + 0 on 54;
+file . "Valvula.vhd" "db1c3eafd5a7714cc9ccd4be3a988f1da976ca3e" "20220623171942.928":
+  entity valvula at 1( 0) + 0 on 63;
+  architecture sens of valvula at 10( 132) + 0 on 64;
+file . "Lavarropas.vhd" "c885d5ddc9e0b7bc26a2da48ff927357f7780b56" "20220623184416.151":
+  entity lavarropas at 1( 0) + 0 on 89;
+  architecture sens of lavarropas at 16( 368) + 0 on 90;
+file . "Motor.vhd" "4c35598e3314779345a28ae5b92513acfd1d2992" "20220623171959.607":
+  entity motor at 1( 0) + 0 on 67;
+  architecture sens of motor at 11( 129) + 0 on 68;
+file . "Lavarropas_tb.vhd" "ef5f87335f4492c37e86cb027caf68cc1621f3ff" "20220623191728.870":
+  entity lavarropas_tb at 1( 0) + 0 on 105;
+  architecture sens of lavarropas_tb at 7( 81) + 0 on 106;

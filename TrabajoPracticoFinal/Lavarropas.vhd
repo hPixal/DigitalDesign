@@ -14,6 +14,7 @@ port(
 end entity;
 
 architecture sens of Lavarropas is
+    signal Contador : integer range 0 to 63 := 0;
     
     component Motor
     port(
@@ -36,14 +37,14 @@ architecture sens of Lavarropas is
 
     component Sensor
     port(
-        sal_sensor : in std_logic
+        sal_sensor : out std_logic
     );
     end component;
 
     component Electroiman
     port(
         act_electroiman : in std_logic;
-        led_electroiman : out std_logic
+        salida_electroiman : out std_logic
     );
     end component;
 
@@ -64,7 +65,7 @@ architecture sens of Lavarropas is
 
     --Electroiman
     signal act_electroiman : std_logic;
-    signal led_electroiman : std_logic;
+    signal salida_electroiman : std_logic;
 
     --Sensores
     signal sal_sensor0 : std_logic;
@@ -75,15 +76,19 @@ architecture sens of Lavarropas is
 
     --Maquina de Estados
 
-    signal state_reg  : std_logic_vector(3 downto 0);
-    signal next_state : std_logic_vector(3 downto 0);
+    signal state_reg  : std_logic_vector(4 downto 0);
+    signal next_state : std_logic_vector(4 downto 0);
+
+    --Bandera
+    signal lavado_flag : std_logic := '0';
 
     --Estados
-    Constant IDLE         : std_logic_vector(3 downto 0) := "0001";
-    Constant LAVADO       : std_logic_vector(3 downto 0) := "0010";
-    Constant ENJUAGUE     : std_logic_vector(3 downto 0) := "0100";
-    Constant CENTRIFUGADO : std_logic_vector(3 downto 0) := "1000";
-begin
+    Constant IDLE         : std_logic_vector(4 downto 0) := "00001";
+    Constant LAVADO       : std_logic_vector(4 downto 0) := "00010";
+    Constant ENJUAGUE     : std_logic_vector(4 downto 0) := "00100";
+    Constant CENTRIFUGADO : std_logic_vector(4 downto 0) := "01000";
+    Constant DESAGOTE     : std_logic_vector(4 downto 0) := "10000";
+    begin
     --Valvulas
     VS: Valvula port map(
         act_valvula => act_VS
@@ -112,7 +117,7 @@ begin
     --Electroiman
     TT: Electroiman port map(
         act_electroiman => act_electroiman,
-        led_electroiman => led_electroiman
+        salida_electroiman => salida_electroiman
     );
 
     --Sensores
@@ -136,90 +141,134 @@ begin
         sal_sensor => sal_sensor4
     );
 
-    process(next_state)
-    begin
-        if(next_state'event) then
+    process(next_state,clk)
+    begin                            
+        if next_state'event then
             state_reg <= next_state;
         end if;
+        led_lavado       <= '0';
+        led_centrifugado <= '0';
+        led_enjuague     <= '0';
     end process;
 
-    process (clk)
+    process(clk)
     begin
-      if rising_edge(clk) then
-        delay <= rd_en & delay(0 to dn - 2);
-      end if;
-    end process;
-
-
-    process(perilla,inicio,state_reg)
-    begin
-        case state_reg is
-----------------------------------------------------------------------------------------------------
-            when IDLE=>
-                if inicio = '1' then
-                    if perilla = "001" or perilla = "011" or perilla = "101" or perilla = "111" then
-                        next_state <= LAVADO;
+        if rising_edge(clk) then
+            Contador <= Contador + 1;
+            led_tapa <= salida_electroiman;
+            case state_reg is
+--------    --------------------------------------------------------------------------------------------
+                when IDLE=>
+                    act_electroiman <= '0';
+                    if inicio = '1' then
+                        if perilla = "001" or perilla = "011" or perilla = "101" or perilla = "111" then
+                            Contador <= 0;
+                            next_state <= LAVADO;
+                        end if;
+                        if perilla = "110" or perilla = "010" then
+                            Contador <= 0;
+                            next_state <= ENJUAGUE;
+                        end if;
+                        if perilla = "100" then
+                            Contador <= 0;
+                            next_state <= CENTRIFUGADO;
+                        end if;
+                    else
+                        Contador <= 0;
+                        next_state <= IDLE;
                     end if;
-                    if perilla = "110" or perilla = "010" then
-                        next_state <= ENJUAGUE;
+--------    --------------------------------------------------------------------------------------------
+                when LAVADO =>
+                    
+                    if Contador = 1 then 
+                        act_electroiman <= '1';
+                        led_lavado <= '1';
+                        act_VJ <= '1';
+                        act_VL <= '1';
+                    elsif Contador = 6 then 
+                        act_VJ <= '0';
+                        act_VL <= '0';
+                        if sal_sensor2 = '0' or sal_sensor4 = '1' then
+                            Contador <= 0;
+                            next_state <= DESAGOTE;
+                            else
+                            med <= '1';
+                        end if;
+                    elsif Contador = 36 then
+                            lavado_flag <= '1';
+                            med <= '0';
+                            Contador <= 0;
+                            next_state <= DESAGOTE;
                     end if;
-                    if perilla = "100" then
-                        next_state <= CENTRIFUGADO;
+                
+--------    --------------------------------------------------------------------------------------------
+                when ENJUAGUE =>
+                    if Contador = 1 then 
+                        act_electroiman <= '1';
+                        led_enjuague <= '1';
+                        act_VS <= '1';
+                        act_VL <= '1';
+                    elsif Contador = 6 then 
+                        act_VS <= '0';
+                        act_VL <= '0';
+                        if sal_sensor2 = '0' or sal_sensor4 = '1' then
+                            Contador <= 0;
+                            next_state <= DESAGOTE;
+                            else
+                            med <= '1';
+                        end if;
+                    elsif Contador = 36 then
+                            med <= '0';
+                            Contador <= 0;
+                            next_state <= DESAGOTE;
                     end if;
-                else
-                    next_state <= IDLE;
-                end if;
-----------------------------------------------------------------------------------------------------
-            when LAVADO =>
-                act_VJ <= '1';
-                act_VL <= '1';
-                --wait for 10 ns;
-                act_VJ <= '0';
-                act_VL <= '0';
-                if sal_sensor3 = '0' then
-                    act_VV <= '1';
-                    med <= '1';
-                    --wait for 20 ns;
-                    act_VV <= '0';
-                    med <= '0';
-                    next_state <= IDLE;
-                end if;
-                med <= '1';
-                --wait for 600 ns;
-                med <= '0';
-                act_VV <= '1';
-                act_bomba <= '1';
-                --wait for 20 ns;
-                act_VV <= '0';
-                act_bomba <= '0';
-                --TODO: Logica de los sensores
-                if perilla = "011" or perilla = "111" then
-                    next_state <= ENJUAGUE;
-                end if;
-                if perilla = "001" then
-                    next_state <= IDLE;
-                end if;
-                if perilla = "101" then
-                    next_state <= CENTRIFUGADO;
-                end if;
-----------------------------------------------------------------------------------------------------
-            when ENJUAGUE =>
-            --TODO: Añadir logica motores
-                if perilla = "011" or perilla = "010" then
-                    next_state <= IDLE;
-                end if;
-                if perilla = "111" or perilla = "110" then
-                    next_state <= CENTRIFUGADO;
-                end if;
-----------------------------------------------------------------------------------------------------
-            when CENTRIFUGADO =>
-                if perilla = "101" or perilla = "111" or perilla = "110" or perilla = "100" then
-                    next_state <= IDLE;
-                end if;
-            
-            when others =>
-            next_state <= IDLE;
-        end case;   
+                
+--------    --------------------------------------------------------------------------------------------
+                when CENTRIFUGADO =>
+                    if Contador = 1 then
+                        led_centrifugado <= '1';
+                        act_electroiman <= '1';
+                        alt <= '1';
+                    elsif Contador = 16 then
+                        alt <= '0'; 
+                        Contador <= 0;
+                        next_state <= IDLE;
+                    end if;
+--------    --------------------------------------------------------------------------------------------
+                when DESAGOTE =>
+                    if Contador = 1 then
+                        act_VV <= '1';
+                        act_bomba <= '1';
+                    elsif Contador = 5 then
+                        if perilla = "001" or perilla = "010" then
+                            Contador <= 0;
+                            next_state <= IDLE;
+                        elsif perilla = "101" or perilla = "110" then
+                            Contador <= 0;
+                            next_state <= CENTRIFUGADO;
+                        elsif perilla = "111" or perilla = "011" then
+                            if lavado_flag = '0' then
+                                Contador <= 0;
+                                next_state <= ENJUAGUE;
+                            else
+                                lavado_flag <= '0';
+                                if perilla = "111" then
+                                    Contador <= 0;
+                                    next_state <= CENTRIFUGADO;
+                                else
+                                    Contador <= 0;
+                                    next_state <= IDLE;
+                                end if;
+                            end if;
+                        end if;
+                        act_bomba <= '0';
+                        act_VV <= '0';
+                    end if;
+                when others =>
+                Contador <= 0;
+                next_state <= IDLE;
+            end case;
+        end if;   
     end process;
 
 end architecture;
