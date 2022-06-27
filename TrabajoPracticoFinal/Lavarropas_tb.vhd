@@ -41,10 +41,10 @@ begin
     );
 
     clk_process :process
-        variable contadorTB : integer range 0 to 200 := 0;
+        variable contadorTB : integer range 0 to 10000 := 0;
         begin
         contadorTB := contadorTB + 1;
-        if contadorTB < 199 then 
+        if contadorTB < 9999 then 
             clk <= '0';
             wait for clk_period/2;  --for 0.5 ns signal is '0'.
             clk <= '1';
@@ -57,10 +57,54 @@ begin
    tb_process :process
         variable contador : integer := 0;
         begin
-        inicio <= '1';
-        perilla <= "000";
-        perilla <= "111";
-        wait for 0.5 ns;
+            perilla <= "000";
+            wait for 5 ns;
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 5 ns;
+    
+            perilla <= "001";
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 50 ns;
+    
+            perilla <= "010";
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 50 ns;
+    
+            perilla <= "100";
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 50 ns;
+    
+            perilla <= "011";
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 100 ns;
+    
+            perilla <= "101";
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 100 ns;
+    
+            perilla <= "110";
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 100 ns;
+    
+            perilla <= "111";
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 100 ns;
         wait;
     end process;
         

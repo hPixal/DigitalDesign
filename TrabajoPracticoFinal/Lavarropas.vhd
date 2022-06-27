@@ -70,7 +70,7 @@ architecture sens of Lavarropas is
     --Sensores
     signal sal_sensor0 : std_logic := '0';
     signal sal_sensor1 : std_logic := '0';
-    signal sal_sensor2 : std_logic := '0';
+    signal sal_sensor2 : std_logic := '1';
     signal sal_sensor3 : std_logic := '0';
     signal sal_sensor4 : std_logic := '0';
 
@@ -121,25 +121,25 @@ architecture sens of Lavarropas is
     );
 
     --Sensores
-    S0: Sensor port map(
-        sal_sensor => sal_sensor0
-    );
-
-    S1: Sensor port map(
-        sal_sensor => sal_sensor1
-    );
-
-    S2: Sensor port map(
-        sal_sensor => sal_sensor2
-    );
-
-    S3: Sensor port map(
-        sal_sensor => sal_sensor3
-    );
-
-    S4: Sensor port map(
-        sal_sensor => sal_sensor4
-    );
+    --S0: Sensor port map(
+    --    sal_sensor => sal_sensor0
+    --);
+--
+    --S1: Sensor port map(
+    --    sal_sensor => sal_sensor1
+    --);
+--
+    --S2: Sensor port map(
+    --    sal_sensor => sal_sensor2
+    --);
+--
+    --S3: Sensor port map(  
+    --    sal_sensor => sal_sensor3
+    --);
+--
+    --S4: Sensor port map(
+    --    sal_sensor => sal_sensor4
+    --);
 
     process(next_state)
     begin                            
@@ -239,10 +239,10 @@ architecture sens of Lavarropas is
                     end if;
 --------    --------------------------------------------------------------------------------------------
                 when DESAGOTE =>
-                    if Contador = 1 then
+                    if Contador = 1 then --sal_sensor0 = 1 then
                         act_VV <= '1';
                         act_bomba <= '1';
-                    elsif Contador = 5 then
+                    elsif Contador = 6 then --sal_sensor0 = 0 or Contador = 6 then
                         if perilla = "001" or perilla = "010" or lavado_flag = "10" then
                             Contador <= 0;
                             next_state <= IDLE;
@@ -250,8 +250,9 @@ architecture sens of Lavarropas is
                             Contador <= 0;
                             next_state <= CENTRIFUGADO;
                         elsif perilla = "111" or perilla = "011" then
-                            if lavado_flag = "00" then
+                            if lavado_flag = "01" then
                                 Contador <= 0;
+                                lavado_flag <= "00";
                                 next_state <= ENJUAGUE;
                             else 
                                 lavado_flag <= "00";

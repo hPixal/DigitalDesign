@@ -1,13 +1,13 @@
 v 4
-file . "Lavarropas_tb.vhd" "0dd0966143985aab50ec8f29ee00b65319f33622" "20220625141056.749":
-  entity lavarropas_tb at 1( 0) + 0 on 117;
-  architecture sens of lavarropas_tb at 7( 81) + 0 on 118;
+file . "Lavarropas_tb.vhd" "17e8dd117b31253b40fb948f302ac1e7f100949b" "20220625151713.471":
+  entity lavarropas_tb at 1( 0) + 0 on 141;
+  architecture sens of lavarropas_tb at 7( 81) + 0 on 142;
 file . "Motor.vhd" "4c35598e3314779345a28ae5b92513acfd1d2992" "20220623171959.607":
   entity motor at 1( 0) + 0 on 67;
   architecture sens of motor at 11( 129) + 0 on 68;
-file . "Lavarropas.vhd" "2d4682b25d787b0b9443bbea24d62044a2a3cd90" "20220625142355.328":
-  entity lavarropas at 1( 0) + 0 on 119;
-  architecture sens of lavarropas at 16( 420) + 0 on 120;
+file . "Lavarropas.vhd" "72c967736a0bc6af73ea9f00f9583826745a29f9" "20220625151725.878":
+  entity lavarropas at 1( 0) + 0 on 143;
+  architecture sens of lavarropas at 16( 420) + 0 on 144;
 file . "Valvula.vhd" "db1c3eafd5a7714cc9ccd4be3a988f1da976ca3e" "20220623171942.928":
   entity valvula at 1( 0) + 0 on 63;
   architecture sens of valvula at 10( 132) + 0 on 64;
