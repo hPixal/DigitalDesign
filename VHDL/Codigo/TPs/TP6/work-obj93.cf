@@ -1,0 +1,7 @@
+v 4
+file . "Contar2_tb.vhd" "f0fd9cd04393bc1e25348f46046462e24f8048bf" "20220627202959.444":
+  entity contar2_tb at 1( 0) + 0 on 15;
+  architecture tb of contar2_tb at 7( 78) + 0 on 16;
+file . "Contar2.vhd" "d98523e131f26085cbdee2367648dcd7dbd7c6a8" "20220627204016.140":
+  entity contar2 at 1( 0) + 0 on 25;
+  architecture sens of contar2 at 13( 303) + 0 on 26;

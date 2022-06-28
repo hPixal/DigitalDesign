@@ -13,9 +13,22 @@ architecture sens of Lavarropas_tb is
         led_tapa         : out std_logic;
         led_lavado       : out std_logic;
         led_centrifugado : out std_logic;
-        led_enjuague     : out std_logic
+        led_enjuague     : out std_logic;
+      --VARIABLES SOLO PRESENTES EN EL TESTBENCH
+        sal_sensor0      : in std_logic;
+        sal_sensor1      : in std_logic;
+        sal_sensor2      : in std_logic;
+        sal_sensor3      : in std_logic;
+        sal_sensor4      : in std_logic
     );
     end component;
+
+    component Sensor
+    port(
+        sal_sensor : out std_logic
+    );
+    end component;
+    
 
     
     signal perilla          :  std_logic_vector(2 downto 0) := (others =>  '0');
@@ -25,6 +38,12 @@ architecture sens of Lavarropas_tb is
     signal led_lavado       :  std_logic;
     signal led_centrifugado :  std_logic;
     signal led_enjuague     :  std_logic;
+
+    signal sal_sensor0 : std_logic;
+    signal sal_sensor1 : std_logic;
+    signal sal_sensor2 : std_logic;
+    signal sal_sensor3 : std_logic;
+    signal sal_sensor4 : std_logic;
 
 
     constant clk_period : time := 1 ns;
@@ -37,7 +56,12 @@ begin
         led_tapa         => led_tapa,         
         led_lavado       => led_lavado,       
         led_centrifugado => led_centrifugado, 
-        led_enjuague     => led_enjuague     
+        led_enjuague     => led_enjuague,
+        sal_sensor0 => sal_sensor0, 
+        sal_sensor1 => sal_sensor1, 
+        sal_sensor2 => sal_sensor2, 
+        sal_sensor3 => sal_sensor3, 
+        sal_sensor4 => sal_sensor4    
     );
 
     clk_process :process
@@ -57,54 +81,54 @@ begin
    tb_process :process
         variable contador : integer := 0;
         begin
-            perilla <= "000";
+            perilla <= "000"; --IDLE
             wait for 5 ns;
             inicio <= '1';
             wait for 3 ns;
             inicio <= '0';
             wait for 5 ns;
     
-            perilla <= "001";
-            inicio <= '1';
-            wait for 3 ns;
-            inicio <= '0';
-            wait for 50 ns;
+            --perilla <= "001"; --LAVADO
+            --inicio <= '1';
+            --wait for 3 ns;
+            --inicio <= '0';
+            --wait for 50 ns;
     
-            perilla <= "010";
-            inicio <= '1';
-            wait for 3 ns;
-            inicio <= '0';
-            wait for 50 ns;
+            --perilla <= "010"; --ENJUAGUE
+            --inicio <= '1';
+            --wait for 3 ns;
+            --inicio <= '0';
+            --wait for 50 ns;
     
-            perilla <= "100";
-            inicio <= '1';
-            wait for 3 ns;
-            inicio <= '0';
-            wait for 50 ns;
-    
-            perilla <= "011";
-            inicio <= '1';
-            wait for 3 ns;
-            inicio <= '0';
-            wait for 100 ns;
-    
-            perilla <= "101";
-            inicio <= '1';
-            wait for 3 ns;
-            inicio <= '0';
-            wait for 100 ns;
-    
-            perilla <= "110";
-            inicio <= '1';
-            wait for 3 ns;
-            inicio <= '0';
-            wait for 100 ns;
-    
-            perilla <= "111";
-            inicio <= '1';
-            wait for 3 ns;
-            inicio <= '0';
-            wait for 100 ns;
+            --perilla <= "100"; --CENTRIFUGADO
+            --inicio <= '1';
+            --wait for 3 ns;
+            --inicio <= '0';
+            --wait for 50 ns;
+    --
+            --perilla <= "011"; --LAVADO Y ENJUAGUE
+            --inicio <= '1';
+            --wait for 3 ns;
+            --inicio <= '0';
+            --wait for 100 ns;
+    --
+            --perilla <= "101"; --LAVADO Y CENTRIFUGADO
+            --inicio <= '1';
+            --wait for 3 ns;
+            --inicio <= '0';
+            --wait for 100 ns;
+    --
+            --perilla <= "110"; --ENJUAGUE Y CENTRIFUGADO
+            --inicio <= '1';
+            --wait for 3 ns;
+            --inicio <= '0';
+            --wait for 100 ns;
+    --
+            --perilla <= "111"; --LAVADO ENJUAGUE Y CENTRIFUGADO
+            --inicio <= '1';
+            --wait for 3 ns;
+            --inicio <= '0';
+            --wait for 100 ns;
         wait;
     end process;
         
