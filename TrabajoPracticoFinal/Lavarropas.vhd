@@ -165,6 +165,7 @@ architecture sens of Lavarropas is
             case state_reg is
 --------------------------------------------------------------------------------------------------------
                 when IDLE=>
+                    act_electroiman <= '0';
                     if inicio = '1' then
                         if perilla = "001" or perilla = "010" or  perilla = "011" or  perilla = "101"  or perilla = "110" or  perilla = "111" then
                             cont <= 0;
@@ -173,12 +174,18 @@ architecture sens of Lavarropas is
                             cont <= 0;
                             next_state <= CENTRIFUGADO;
                         end if;
+                    else
+                        cont <= 0;
+                        next_state <= IDLE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when LAVADO =>
+                    act_electroiman <= '1';
                     if cont = 1 then
+                        led_lavado <= '1';
                         med <= '1';
                     elsif cont = 31 then
+                        led_lavado <= '0';
                         med <= '0';
                         cont <= 0;
                         if perilla = "001" then
@@ -188,27 +195,35 @@ architecture sens of Lavarropas is
                         elsif perilla = "011" and perilla = "111" then
                             camino <= "01"; 
                         end if;
+                        led_lavado <= '0';
                         cont <= 0;
                         next_state <= DESAGOTE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when ENJUAGUE =>
+                    act_electroiman <= '1';
                     if cont = 1 then
+                        led_enjuague <= '1';
                         med <= '1';
                     elsif cont = 31 then
                         med <= '0';
                         cont <= 0;
+                        led_enjuague <= '0';
                         if perilla = "010" or perilla = "011" then
                             camino <= "11";
                         elsif perilla = "110" or perilla = "111" then
                             camino <= "10";
                         end if;
+                        led_enjuague <= '0';
                         next_state <= DESAGOTE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when CENTRIFUGADO =>
+                    act_electroiman <= '1';
                     if cont = 1 then
+                        led_centrifugado <= '1';
                         if sal_sensor0 = '1' then
+                            led_centrifugado <= '0';
                             camino <= "10";
                             cont <= 0;
                             next_state <= DESAGOTE;
@@ -218,13 +233,16 @@ architecture sens of Lavarropas is
                     elsif cont = 16 then
                         camino <= "00";
                         cont <= 0;
+                        led_centrifugado <= '0';
                         next_state <= DESAGOTE;
                     else 
                         cont <= 0;
+                        led_centrifugado <= '0';
                         next_state <= IDLE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when LLENADO =>
+                    act_electroiman <= '1';
                     if sal_sensor4 = '0' then
                         if cont = 1 and sal_sensor2 = '0' then
                             if camino = "00" then 
@@ -263,10 +281,11 @@ architecture sens of Lavarropas is
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when DESAGOTE =>
+                    act_electroiman <= '1';
                     if cont = 1 and sal_sensor0 = '1' then
                         act_bomba <= '1';
                         act_VV <= '1';
-                    elsif cont = 6 and sal_sensor0 = '0' then
+                    elsif cont > 1 and sal_sensor0 = '0' then
                         act_bomba <= '0';
                         act_VV <= '0';
                         if camino = "01" then
@@ -279,7 +298,7 @@ architecture sens of Lavarropas is
                             cont <= 0;
                             next_state <= IDLE;
                         end if;
-                    elsif cont = 6 and sal_sensor0 = '1' then
+                    elsif cont = 1 and sal_sensor0 = '0' then
                         cont <= 0;
                         next_state <= IDLE;
                     end if;
@@ -288,9 +307,9 @@ architecture sens of Lavarropas is
                 cont <= 0;
                 next_state <= IDLE;
             end case;
-            --if cont = 60 then
-            --    cont <= 0;
-            --end if;
+            if cont = 60 then
+                cont <= 0;
+            end if;
         end if;   
     end process;
 

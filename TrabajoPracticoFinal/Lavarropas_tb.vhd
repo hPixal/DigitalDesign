@@ -15,11 +15,11 @@ architecture sens of Lavarropas_tb is
         led_centrifugado : out std_logic;
         led_enjuague     : out std_logic;
       --VARIABLES SOLO PRESENTES EN EL TESTBENCH
-        sal_sensor0      : in std_logic;
-        sal_sensor1      : in std_logic;
-        sal_sensor2      : in std_logic;
-        sal_sensor3      : in std_logic;
-        sal_sensor4      : in std_logic
+        sal_sensor0      : in std_logic := '0';
+        sal_sensor1      : in std_logic := '0';
+        sal_sensor2      : in std_logic := '0';
+        sal_sensor3      : in std_logic := '0';
+        sal_sensor4      : in std_logic := '0'
     );
     end component;
 
@@ -39,11 +39,11 @@ architecture sens of Lavarropas_tb is
     signal led_centrifugado :  std_logic;
     signal led_enjuague     :  std_logic;
 
-    signal sal_sensor0 : std_logic;
-    signal sal_sensor1 : std_logic;
-    signal sal_sensor2 : std_logic;
-    signal sal_sensor3 : std_logic;
-    signal sal_sensor4 : std_logic;
+    signal sal_sensor0 : std_logic := '0';
+    signal sal_sensor1 : std_logic := '0';
+    signal sal_sensor2 : std_logic := '0';
+    signal sal_sensor3 : std_logic := '0';
+    signal sal_sensor4 : std_logic := '0';
 
 
     constant clk_period : time := 1 ns;
@@ -81,18 +81,18 @@ begin
    tb_process :process
         variable contador : integer := 0;
         begin
-            perilla <= "000"; --IDLE
-            wait for 5 ns;
-            inicio <= '1';
-            wait for 3 ns;
-            inicio <= '0';
-            wait for 5 ns;
-    
-            --perilla <= "001"; --LAVADO
+            --perilla <= "000"; --IDLE
+            --wait for 5 ns;
             --inicio <= '1';
             --wait for 3 ns;
             --inicio <= '0';
-            --wait for 50 ns;
+            --wait for 5 ns;
+    
+            perilla <= "001"; --LAVADO
+            inicio <= '1';
+            wait for 3 ns;
+            inicio <= '0';
+            wait for 50 ns;
     
             --perilla <= "010"; --ENJUAGUE
             --inicio <= '1';
