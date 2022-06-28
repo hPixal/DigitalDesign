@@ -88,11 +88,26 @@ begin
             --inicio <= '0';
             --wait for 5 ns;
     
-            perilla <= "001"; --LAVADO
+            perilla <= "111";
             inicio <= '1';
-            wait for 3 ns;
+            wait for 5 ns;
+            sal_sensor2 <= '1';
+            sal_sensor0 <= '1';
             inicio <= '0';
-            wait for 50 ns;
+            wait for 36 ns;
+            sal_sensor2 <= '0';
+            sal_sensor0 <= '0';
+            wait for 6 ns;
+            sal_sensor2 <= '1';
+            sal_sensor0 <= '1';
+            wait for 36 ns;
+            sal_sensor2 <= '0';
+            sal_sensor0 <= '0';
+            wait for 10 ns;
+            sal_sensor0 <= '1';
+            wait for 11 ns;
+            sal_sensor0 <= '0';
+
     
             --perilla <= "010"; --ENJUAGUE
             --inicio <= '1';

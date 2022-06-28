@@ -167,11 +167,17 @@ architecture sens of Lavarropas is
                 when IDLE=>
                     act_electroiman <= '0';
                     if inicio = '1' then
-                        if perilla = "001" or perilla = "010" or  perilla = "011" or  perilla = "101"  or perilla = "110" or  perilla = "111" then
+                        if perilla = "001" or  perilla = "011" or  perilla = "101" or  perilla = "111" then
+                            camino <= "00";
+                            cont <= 0;
+                            next_state <= LLENADO;
+                        elsif perilla = "010" or perilla = "110" then
+                            camino <= "01";
                             cont <= 0;
                             next_state <= LLENADO;
                         elsif perilla = "100" then
                             cont <= 0;
+                            camino <= "11";
                             next_state <= CENTRIFUGADO;
                         end if;
                     else
@@ -192,7 +198,7 @@ architecture sens of Lavarropas is
                             camino <= "11";
                         elsif perilla = "101" then
                             camino <= "10";
-                        elsif perilla = "011" and perilla = "111" then
+                        elsif perilla = "011" or perilla = "111" then
                             camino <= "01"; 
                         end if;
                         led_lavado <= '0';
@@ -236,9 +242,9 @@ architecture sens of Lavarropas is
                         led_centrifugado <= '0';
                         next_state <= DESAGOTE;
                     else 
-                        cont <= 0;
-                        led_centrifugado <= '0';
-                        next_state <= IDLE;
+                        --cont <= 0;
+                        --led_centrifugado <= '0';
+                        --next_state <= IDLE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when LLENADO =>
@@ -298,7 +304,12 @@ architecture sens of Lavarropas is
                             cont <= 0;
                             next_state <= IDLE;
                         end if;
+                    elsif cont = 6 and sal_sensor0 = '1' then
+                        act_bomba <= '0';
+                        cont <= 0;
+                        next_state <= IDLE;
                     elsif cont = 1 and sal_sensor0 = '0' then
+                        act_bomba <= '0';
                         cont <= 0;
                         next_state <= IDLE;
                     end if;
@@ -307,9 +318,6 @@ architecture sens of Lavarropas is
                 cont <= 0;
                 next_state <= IDLE;
             end case;
-            if cont = 60 then
-                cont <= 0;
-            end if;
         end if;   
     end process;
 
