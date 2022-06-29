@@ -232,19 +232,19 @@ architecture sens of Lavarropas is
                             led_centrifugado <= '0';
                             camino <= "10";
                             cont <= 0;
+                            alt <= '0';
                             next_state <= DESAGOTE;
                         else
                             alt <= '1';
                         end if;
                     elsif cont = 16 then
+                        alt <= '0';
                         camino <= "00";
                         cont <= 0;
                         led_centrifugado <= '0';
                         next_state <= DESAGOTE;
                     else 
-                        --cont <= 0;
-                        --led_centrifugado <= '0';
-                        --next_state <= IDLE;
+
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when LLENADO =>
