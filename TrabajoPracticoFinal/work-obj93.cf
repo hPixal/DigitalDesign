@@ -11,12 +11,12 @@ file . "Electroiman.vhd" "808368603389fc8f2dd2efa293f5052a02eb7ac5" "20220623171
 file . "Valvula.vhd" "db1c3eafd5a7714cc9ccd4be3a988f1da976ca3e" "20220623171942.928":
   entity valvula at 1( 0) + 0 on 63;
   architecture sens of valvula at 10( 132) + 0 on 64;
-file . "Lavarropas.vhd" "d906a292f3816aaa656509d2b5a2356f32c01604" "20220628191557.673":
-  entity lavarropas at 1( 0) + 0 on 231;
-  architecture sens of lavarropas at 22( 675) + 0 on 232;
+file . "Lavarropas.vhd" "122c6ddfe90f44f0732850f2f754c13059c94e16" "20220629003648.418":
+  entity lavarropas at 1( 0) + 0 on 235;
+  architecture sens of lavarropas at 22( 675) + 0 on 236;
 file . "Motor.vhd" "4c35598e3314779345a28ae5b92513acfd1d2992" "20220623171959.607":
   entity motor at 1( 0) + 0 on 67;
   architecture sens of motor at 11( 129) + 0 on 68;
-file . "Lavarropas_tb.vhd" "381c671f697c655d75826dc16f24f33c284fd7c4" "20220628191618.783":
-  entity lavarropas_tb at 1( 0) + 0 on 233;
-  architecture sens of lavarropas_tb at 7( 81) + 0 on 234;
+file . "Lavarropas_tb.vhd" "381c671f697c655d75826dc16f24f33c284fd7c4" "20220629003656.069":
+  entity lavarropas_tb at 1( 0) + 0 on 237;
+  architecture sens of lavarropas_tb at 7( 81) + 0 on 238;
