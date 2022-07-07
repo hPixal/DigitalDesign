@@ -1,5 +1,5 @@
 $date
-  Tue Jun 28 21:37:13 2022
+  Thu Jul  7 14:25:54 2022
 $end
 $version
   GHDL v0
@@ -48,30 +48,29 @@ $var reg 1 @ act_bomba $end
 $var reg 1 A act_electroiman $end
 $var reg 1 B salida_electroiman $end
 $var reg 6 C state_reg[5:0] $end
-$var reg 6 D next_state[5:0] $end
-$var reg 2 E camino[1:0] $end
+$var reg 2 D camino[1:0] $end
 $scope module vs $end
-$var reg 1 F act_valvula $end
+$var reg 1 E act_valvula $end
 $upscope $end
 $scope module vj $end
-$var reg 1 G act_valvula $end
+$var reg 1 F act_valvula $end
 $upscope $end
 $scope module vl $end
-$var reg 1 H act_valvula $end
+$var reg 1 G act_valvula $end
 $upscope $end
 $scope module vv $end
-$var reg 1 I act_valvula $end
+$var reg 1 H act_valvula $end
 $upscope $end
 $scope module cvm $end
-$var reg 1 J med $end
-$var reg 1 K alt $end
+$var reg 1 I med $end
+$var reg 1 J alt $end
 $upscope $end
 $scope module cb $end
-$var reg 1 L act_bomba $end
+$var reg 1 K act_bomba $end
 $upscope $end
 $scope module tt $end
-$var reg 1 M act_electroiman $end
-$var reg 1 N salida_electroiman $end
+$var reg 1 L act_electroiman $end
+$var reg 1 M salida_electroiman $end
 $upscope $end
 $upscope $end
 $upscope $end
@@ -112,8 +111,8 @@ b0 9
 0A
 0B
 bUUUUUU C
-bUUUUUU D
-b00 E
+b00 D
+0E
 0F
 0G
 0H
@@ -122,12 +121,10 @@ b00 E
 0K
 0L
 0M
-0N
 #500000
 1#
 1/
 b000001 C
-b000001 D
 #1000000
 0#
 0/
@@ -135,7 +132,6 @@ b000001 D
 1#
 1/
 b010000 C
-b010000 D
 #2000000
 0#
 0/
@@ -145,8 +141,8 @@ b010000 D
 b1 9
 1A
 1B
+1L
 1M
-1N
 #3000000
 0#
 0/
@@ -158,8 +154,8 @@ b1 9
 b10 9
 1:
 1<
+1F
 1G
-1H
 #4000000
 0#
 0/
@@ -183,9 +179,8 @@ b0 9
 0:
 0<
 b000010 C
-b000010 D
+0F
 0G
-0H
 #6000000
 0#
 0/
@@ -203,7 +198,7 @@ b1 9
 11
 b10 9
 1?
-1J
+1I
 #8000000
 0#
 0/
@@ -418,9 +413,8 @@ b11111 9
 b0 9
 0?
 b100000 C
-b100000 D
-b01 E
-0J
+b01 D
+0I
 #38000000
 0#
 0/
@@ -437,8 +431,8 @@ b1 9
 b10 9
 1=
 1@
-1I
-1L
+1H
+1K
 #40000000
 0#
 0/
@@ -460,9 +454,8 @@ b0 9
 0=
 0@
 b010000 C
-b010000 D
-0I
-0L
+0H
+0K
 #42000000
 0#
 0/
@@ -479,8 +472,8 @@ b1 9
 b10 9
 1;
 1<
-1F
-1H
+1E
+1G
 #44000000
 0#
 0/
@@ -516,9 +509,8 @@ b0 9
 0;
 0<
 b000100 C
-b000100 D
-0F
-0H
+0E
+0G
 #48000000
 0#
 0/
@@ -536,7 +528,7 @@ b1 9
 13
 b10 9
 1?
-1J
+1I
 #50000000
 0#
 0/
@@ -751,9 +743,8 @@ b11111 9
 b0 9
 0?
 b100000 C
-b100000 D
-b10 E
-0J
+b10 D
+0I
 #80000000
 0#
 0/
@@ -770,8 +761,8 @@ b1 9
 b10 9
 1=
 1@
-1I
-1L
+1H
+1K
 #82000000
 0#
 0/
@@ -793,9 +784,8 @@ b0 9
 0=
 0@
 b001000 C
-b001000 D
-0I
-0L
+0H
+0K
 #84000000
 0#
 0/
@@ -813,7 +803,7 @@ b1 9
 12
 b10 9
 1>
-1K
+1J
 #86000000
 0#
 0/
@@ -925,9 +915,8 @@ b10000 9
 b0 9
 0>
 b100000 C
-b100000 D
-b00 E
-0K
+b00 D
+0J
 #101000000
 0#
 0/
@@ -944,8 +933,8 @@ b1 9
 b10 9
 1=
 1@
-1I
-1L
+1H
+1K
 #103000000
 0#
 0/
@@ -965,9 +954,8 @@ b0 9
 0=
 0@
 b000001 C
-b000001 D
-0I
-0L
+0H
+0K
 #105000000
 0#
 0/
@@ -976,8 +964,8 @@ b000001 D
 1/
 0A
 0B
+0L
 0M
-0N
 #106000000
 0#
 0/

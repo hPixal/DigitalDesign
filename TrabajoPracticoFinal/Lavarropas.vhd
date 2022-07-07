@@ -10,7 +10,6 @@ port(
     led_lavado       : out std_logic := '0';
     led_centrifugado : out std_logic := '0';
     led_enjuague     : out std_logic := '0';
-    --DESCOMENTAR PARA EL TESTBENCH
     sal_sensor0      : in std_logic := '0';
     sal_sensor1      : in std_logic := '0';
     sal_sensor2      : in std_logic := '0';
@@ -74,16 +73,11 @@ architecture sens of Lavarropas is
     signal salida_electroiman : std_logic := '0';
 
     --Sensores COMENTAR ESTAS SENALES PARA EL TESBENCH
-    --signal sal_sensor0 : std_logic := '0';
-    --signal sal_sensor1 : std_logic := '0';
-    --signal sal_sensor2 : std_logic := '1';
-    --signal sal_sensor3 : std_logic := '0';
-    --signal sal_sensor4 : std_logic := '0';
+
 
     --Maquina de Estados
-
-    signal state_reg  : std_logic_vector(5 downto 0);
-    signal next_state : std_logic_vector(5 downto 0);
+    
+    signal state_reg : std_logic_vector(5 downto 0);
 
     --Bandera
     signal camino : std_logic_vector(1 downto 0) := "00";
@@ -128,34 +122,6 @@ architecture sens of Lavarropas is
         salida_electroiman => salida_electroiman
     );
 
-    --COMENTAR LOS SENSORES PARA EL TEST BENCH
-    --Sensores
-    --S0: Sensor port map(
-    --    sal_sensor => sal_sensor0
-    --);
---
-    --S1: Sensor port map(
-    --    sal_sensor => sal_sensor1
-    --);
---
-    --S2: Sensor port map(
-    --    sal_sensor => sal_sensor2
-    --);
---
-    --S3: Sensor port map(  
-    --    sal_sensor => sal_sensor3
-    --);
---
-    --S4: Sensor port map(
-    --    sal_sensor => sal_sensor4
-    --);
-
-    process(next_state)
-    begin                            
-        if next_state'event then
-            state_reg <= next_state;
-        end if;
-    end process;
 
     process(clk)
     begin
@@ -170,19 +136,19 @@ architecture sens of Lavarropas is
                         if perilla = "001" or  perilla = "011" or  perilla = "101" or  perilla = "111" then
                             camino <= "00";
                             cont <= 0;
-                            next_state <= LLENADO;
+                            state_reg <= LLENADO;
                         elsif perilla = "010" or perilla = "110" then
                             camino <= "01";
                             cont <= 0;
-                            next_state <= LLENADO;
+                            state_reg <= LLENADO;
                         elsif perilla = "100" then
                             cont <= 0;
                             camino <= "11";
-                            next_state <= CENTRIFUGADO;
+                            state_reg <= CENTRIFUGADO;
                         end if;
                     else
                         cont <= 0;
-                        next_state <= IDLE;
+                        state_reg <= IDLE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when LAVADO =>
@@ -203,7 +169,7 @@ architecture sens of Lavarropas is
                         end if;
                         led_lavado <= '0';
                         cont <= 0;
-                        next_state <= DESAGOTE;
+                        state_reg <= DESAGOTE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when ENJUAGUE =>
@@ -221,7 +187,7 @@ architecture sens of Lavarropas is
                             camino <= "10";
                         end if;
                         led_enjuague <= '0';
-                        next_state <= DESAGOTE;
+                        state_reg <= DESAGOTE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when CENTRIFUGADO =>
@@ -233,7 +199,7 @@ architecture sens of Lavarropas is
                             camino <= "10";
                             cont <= 0;
                             alt <= '0';
-                            next_state <= DESAGOTE;
+                            state_reg <= DESAGOTE;
                         else
                             alt <= '1';
                         end if;
@@ -242,7 +208,7 @@ architecture sens of Lavarropas is
                         camino <= "00";
                         cont <= 0;
                         led_centrifugado <= '0';
-                        next_state <= DESAGOTE;
+                        state_reg <= DESAGOTE;
                     else 
 
                     end if;
@@ -264,10 +230,10 @@ architecture sens of Lavarropas is
                             act_VJ <= '0';
                             if camino = "00" then
                                 cont <= 0;
-                                next_state <= LAVADO;
+                                state_reg <= LAVADO;
                             else
                                 cont <= 0;
-                                next_state <= ENJUAGUE;
+                                state_reg <= ENJUAGUE;
                             end if;
                         elsif cont = 6 then
                             act_VL <= '0';
@@ -275,7 +241,7 @@ architecture sens of Lavarropas is
                             act_VJ <= '0'; 
                             camino <= "11";
                             cont <= 0;
-                            next_state <= DESAGOTE;
+                            state_reg <= DESAGOTE;
                         end if;
                     else
                         act_VL <= '0';
@@ -283,7 +249,7 @@ architecture sens of Lavarropas is
                         act_VJ <= '0'; 
                         camino <= "11";
                         cont <= 0;
-                        next_state <= DESAGOTE;
+                        state_reg <= DESAGOTE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when DESAGOTE =>
@@ -296,27 +262,27 @@ architecture sens of Lavarropas is
                         act_VV <= '0';
                         if camino = "01" then
                             cont <= 0;
-                            next_state <= LLENADO;
+                            state_reg <= LLENADO;
                         elsif camino = "10" then
                             cont <= 0;
-                            next_state <= CENTRIFUGADO;
+                            state_reg <= CENTRIFUGADO;
                         else
                             cont <= 0;
-                            next_state <= IDLE;
+                            state_reg <= IDLE;
                         end if;
                     elsif cont = 6 and sal_sensor0 = '1' then
                         act_bomba <= '0';
                         cont <= 0;
-                        next_state <= IDLE;
+                        state_reg <= IDLE;
                     elsif cont = 1 and sal_sensor0 = '0' then
                         act_bomba <= '0';
                         cont <= 0;
-                        next_state <= IDLE;
+                        state_reg <= IDLE;
                     end if;
 --------------------------------------------------------------------------------------------------------
                 when others =>
                 cont <= 0;
-                next_state <= IDLE;
+                state_reg <= IDLE;
             end case;
         end if;   
     end process;
